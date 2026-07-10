@@ -1,2 +1,2 @@
 # scottsyms.github.io
-Repo page
+Placeholder for site
