@@ -125,6 +125,16 @@
     .tag-shell { background: #e2e8f0; color: #334155; }
     .tag-docker { background: #c7eefb; color: #0e4f6b; }
 
+    .card .card-img {
+      width: calc(100% + 3rem);
+      margin: -1.25rem -1.5rem 0.75rem;
+      border-radius: 10px 10px 0 0;
+      display: block;
+      object-fit: cover;
+      max-height: 180px;
+      cursor: pointer;
+    }
+
     .card .cat {
       font-size: 0.72rem;
       font-weight: 600;
@@ -143,6 +153,24 @@
       font-size: 0.75rem;
       color: #94a3b8;
       margin-top: 0.35rem;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,.85);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 6px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.5);
     }
 
     /* --- Footer --- */
@@ -233,6 +261,7 @@
 
     <div class="card">
       <div class="cat">COP Platform</div>
+      <img class="card-img" src="images/screenshots/tommy.jpg" alt="tommy screenshot" onclick="openLightbox(this.src)">
       <h3><a href="https://github.com/ScottSyms/tommy">tommy</a></h3>
       <p>Maritime COP prototype with MapLibre frontend, FastAPI backend, local Whisper transcription, and a deterministic assistant loop for map-aware vessel queries.</p>
       <div class="tags"><span class="tag-python">Python</span><span class="tag-js">JavaScript</span></div>
@@ -240,6 +269,7 @@
 
     <div class="card">
       <div class="cat">Geospatial Viz</div>
+      <img class="card-img" src="images/screenshots/opfs-sa.png" alt="opfs-sa screenshot" onclick="openLightbox(this.src)">
       <h3><a href="https://github.com/ScottSyms/opfs-sa">opfs-sa</a></h3>
       <p>In-browser geospatial visualisation using OPFS to store pre-aggregated Parquet files locally, queried with WASM DuckDB. Renders 50M+ points via WebAssembly-accelerated density tiles.</p>
       <div class="tags"><span class="tag-js">JavaScript</span><span class="tag-python">Python</span><span class="tag-rust">Rust</span></div>
@@ -333,6 +363,7 @@
 
     <div class="card">
       <div class="cat">Agent Platform</div>
+      <img class="card-img" src="images/screenshots/canchat-agent.png" alt="CANChat-Agent screenshot" onclick="openLightbox(this.src)">
       <h3><a href="https://github.com/ssc-dsai/CANChat-Agent">CANChat-Agent</a></h3>
       <p>Chromium browser extension that places an AI agent in the side panel, using the browser itself as a toolset — opens tabs, searches, reads pages (incl. behind logins), and synthesises answers. Bring-your-own-model. Includes a companion Word add-in.</p>
       <div class="tags"><span class="tag-ts">TypeScript</span><span class="tag-html">HTML</span></div>
@@ -391,6 +422,7 @@
 
     <div class="card">
       <div class="cat">Wikis</div>
+      <img class="card-img" src="images/screenshots/generatewiki.png" alt="generatewiki output" onclick="openLightbox(this.src)">
       <h3><a href="https://github.com/ScottSyms/generatewiki">generatewiki</a></h3>
       <p>HTML wiki generation tool — processes structured content and renders static wiki sites.</p>
       <div class="tags"><span class="tag-ruby">Ruby</span><span class="tag-html">HTML</span></div>
@@ -415,9 +447,28 @@
 
 </div>
 
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <footer>
   <p><a href="https://github.com/ScottSyms">github.com/ScottSyms</a></p>
 </footer>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 
 </body>
 </html>
