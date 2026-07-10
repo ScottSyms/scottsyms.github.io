@@ -3,36 +3,421 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Simple Web Page</title>
+  <title>Scott Syms — Projects</title>
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
     body {
-      max-width: 720px;
-      margin: 80px auto;
-      padding: 0 24px;
-      color: #222;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
+      color: #222;
+      background: #f5f7fa;
     }
 
-    h1 {
-      line-height: 1.2;
+    /* --- Header --- */
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    header p {
+      max-width: 600px;
+      margin: 0.75rem auto 0;
+      font-size: 1.1rem;
+      opacity: 0.85;
+    }
+    header .links {
+      margin-top: 1.25rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    header .links a {
+      color: #93c5fd;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    header .links a:hover { color: #fff; }
+
+    /* --- Sections --- */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    section { padding: 2.5rem 0; }
+    section:first-of-type { padding-top: 1.5rem; }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #1e293b;
+      display: inline-block;
+    }
+
+    /* --- Project Grid --- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      transition: transform .15s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    }
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .card h3 a {
+      color: #1e293b;
+      text-decoration: none;
+    }
+    .card h3 a:hover { color: #3b82f6; }
+
+    .card .tags {
+      margin: 0.5rem 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .card .tags span {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+    .tag-rust { background: #f0ead6; color: #7a4e00; }
+    .tag-python { background: #d4e8fa; color: #1a56db; }
+    .tag-ts { background: #c9e6ff; color: #0369a1; }
+    .tag-js { background: #fef3c7; color: #a16207; }
+    .tag-html { background: #fce4ec; color: #b71c1c; }
+    .tag-svelte { background: #fce7f3; color: #a11c6b; }
+    .tag-ruby { background: #fee2e2; color: #a11c1c; }
+    .tag-tex { background: #e0e7ff; color: #3730a3; }
+    .tag-nix { background: #d1fae5; color: #065f46; }
+    .tag-shell { background: #e2e8f0; color: #334155; }
+    .tag-docker { background: #c7eefb; color: #0e4f6b; }
+
+    .card .cat {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #6366f1;
+      margin-bottom: 0.3rem;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #475569;
+      margin: 0.5rem 0 0.25rem;
+      flex: 1;
+    }
+    .card .org {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-top: 0.35rem;
+    }
+
+    /* --- Footer --- */
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+    }
+    footer a { color: #3b82f6; text-decoration: none; }
+
+    /* --- Repo count badge --- */
+    .count {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-left: 0.75rem;
+      font-weight: 400;
+    }
+
+    @media (max-width: 640px) {
+      header h1 { font-size: 1.75rem; }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Lorem Ipsum</h1>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    </p>
-    <p>
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-  </main>
+
+<header>
+  <h1>Scott Syms</h1>
+  <p>Building data pipelines, geospatial platforms, and AI tooling — mostly in Rust and Python.</p>
+  <div class="links">
+    <a href="https://github.com/ScottSyms">GitHub &rarr;</a>
+    <a href="#maritime">Maritime</a>
+    <a href="#ai">AI &amp; LLM</a>
+    <a href="#data">Data &amp; Tools</a>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- Maritime & Geospatial -->
+<section id="maritime">
+  <h2 class="section-title">Maritime &amp; Geospatial <span class="count">(11 projects)</span></h2>
+  <div class="grid">
+
+    <div class="card">
+      <div class="cat">Maritime Pipeline</div>
+      <h3><a href="https://github.com/ScottSyms/collect">collect</a></h3>
+      <p>Ingests AIS positional data from file, TCP, Kafka, and WebSocket sources into Hive-partitioned Parquet (Zstd). Rust workspace with &#64;collect-socket&#44; &#64;collect-file&#44; &#64;collect-kafka&#44; &#64;aisstream&#44; and &#64;ais-parse&#41;.</p>
+      <div class="tags"><span class="tag-rust">Rust</span><span class="tag-docker">Docker</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Maritime Pipeline</div>
+      <h3><a href="https://github.com/ScottSyms/tcp-multiplexer">tcp-multiplexer</a></h3>
+      <p>Lightweight TCP broker that connects to an upstream AIS feed and distributes framed NMEA messages across downstream consumers with load balancing, backpressure, and Prometheus metrics.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Maritime Pipeline</div>
+      <h3><a href="https://github.com/ScottSyms/nmea-parser">nmea-parser</a></h3>
+      <p>NMEA 0183 parser crate (crates.io) covering all AIS sentences and major GNSS sentences. Supports AIS Class A/B, NMEA 4.10 tag blocks, GPS&#47;GLONASS&#47;Galileo&#47;BeiDou.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Maritime Pipeline</div>
+      <h3><a href="https://github.com/ScottSyms/parquet-timings">parquet-timings</a></h3>
+      <p>Benchmarks 743M-row AIS data across five Hive-partitioned Parquet layouts: row-group pruning, bloom-filter skipping, and Hilbert-curve interval pruning. Achieves 2.4&times; geo-mean speedup over baseline.</p>
+      <div class="tags"><span class="tag-rust">Rust</span><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">COP Platform</div>
+      <h3><a href="https://github.com/ScottSyms/AI-SA">AI-SA / Tommy3</a></h3>
+      <p>Skill-driven geospatial intelligence platform — third iteration of the tommy family. Drop-in domain skills provide data sources, SQL logic, tool contracts, and map layers. Rust&#47;Axum backend + SvelteKit frontend + WASM DuckDB.</p>
+      <div class="tags"><span class="tag-rust">Rust</span><span class="tag-svelte">Svelte</span><span class="tag-ts">TypeScript</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">COP Platform</div>
+      <h3><a href="https://github.com/ScottSyms/tommy2">tommy2</a></h3>
+      <p>Agent-assisted Common Operating Picture for maritime awareness. Voice and text commands query AIS data through a skill-driven architecture with results rendered on an interactive MapLibre map.</p>
+      <div class="tags"><span class="tag-python">Python</span><span class="tag-js">JavaScript</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">COP Platform</div>
+      <h3><a href="https://github.com/ScottSyms/tommy">tommy</a></h3>
+      <p>Maritime COP prototype with MapLibre frontend, FastAPI backend, local Whisper transcription, and a deterministic assistant loop for map-aware vessel queries.</p>
+      <div class="tags"><span class="tag-python">Python</span><span class="tag-js">JavaScript</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Geospatial Viz</div>
+      <h3><a href="https://github.com/ScottSyms/opfs-sa">opfs-sa</a></h3>
+      <p>In-browser geospatial visualisation using OPFS to store pre-aggregated Parquet files locally, queried with WASM DuckDB. Renders 50M+ points via WebAssembly-accelerated density tiles.</p>
+      <div class="tags"><span class="tag-js">JavaScript</span><span class="tag-python">Python</span><span class="tag-rust">Rust</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Tile Servers</div>
+      <h3><a href="https://github.com/ScottSyms/mvt-rs-fork">mvt-rs-fork</a></h3>
+      <p>High-speed Mapbox Vector Tile server in Rust (Salvo). Generates MVT from Parquet files with admin UI, JWT auth, disk&#47;Redis caching, i18n, and multi-source layer support.</p>
+      <div class="tags"><span class="tag-rust">Rust</span><span class="tag-docker">Docker</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Tile Servers</div>
+      <h3><a href="https://github.com/ScottSyms/tilerust">tilerust</a></h3>
+      <p>Simple Rust tile server that reads geospatial data from Parquet, indexes with an R-tree, and serves density PNG tiles with time-range filtering.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Tile Servers</div>
+      <h3><a href="https://github.com/ScottSyms/tileshade">tileshade</a></h3>
+      <p>Python counterpart of tilerust — FastAPI&#47;Datashader tile server serving PNG density tiles from CSV data with Web Mercator projection.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Heritage & Data Processing -->
+<section id="heritage">
+  <h2 class="section-title">Heritage &amp; Data Processing <span class="count">(4 projects)</span></h2>
+  <div class="grid">
+
+    <div class="card">
+      <div class="cat">Data Collection</div>
+      <h3><a href="https://github.com/ScottSyms/Heritage.scrape">Heritage.scrape</a></h3>
+      <p>Scrapy&#47;Playwright crawler that scrapes heritage websites from a URL list, extracts text, and takes full-page screenshots — handling JavaScript-rendered content.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Analysis</div>
+      <h3><a href="https://github.com/ScottSyms/Heritage.compare">Heritage.compare</a></h3>
+      <p>Multilingual text comparison across English, French, and Spanish using bert-score. Reads from SQLite, scores similarity, and stores results.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Translation</div>
+      <h3><a href="https://github.com/ScottSyms/Heritage.translate">Heritage.translate</a></h3>
+      <p>Translates text between English, French, and Spanish using Hugging Face transformer models, with automatic language detection and SQLite storage.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Conversion</div>
+      <h3><a href="https://github.com/ScottSyms/marinecadastre_to_parquet">marinecadastre_to_parquet</a></h3>
+      <p>Converts marine cadastre data into Parquet format for efficient geospatial querying.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AI & LLM -->
+<section id="ai">
+  <h2 class="section-title">AI &amp; LLM <span class="count">(6 projects)</span></h2>
+  <div class="grid">
+
+    <div class="card">
+      <div class="cat">Local Inference</div>
+      <h3><a href="https://github.com/ScottSyms/tinyllmserver">tinyllmserver</a></h3>
+      <p>Tiny, fast, low-memory OpenAI-compatible server running local GGUF chat models (llama.cpp) and multilingual embeddings (fastembed). Tool&#47;function calling, Metal GPU on Mac, CPU on Windows.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">RAG</div>
+      <h3><a href="https://github.com/ScottSyms/portablebrains">portablebrains</a></h3>
+      <p>Document indexing system that ingests PDF&#47;HTML&#47;DOCX&#47;PPTX&#47;XLSX, extracts text with semantic chunking, generates ONNX embeddings, and stores in DuckDB. Includes interactive CLI and MCP server for Claude&#47;VSCode.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">RAG</div>
+      <h3><a href="https://github.com/ScottSyms/ragdata-onnx">ragdata-onnx</a></h3>
+      <p>Builds txtai embedding databases for common research datasets (ArXiv, Wikipedia). Published as the <code>ragdata</code> pip package.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Agent Platform</div>
+      <h3><a href="https://github.com/ssc-dsai/CANChat-Agent">CANChat-Agent</a></h3>
+      <p>Chromium browser extension that places an AI agent in the side panel, using the browser itself as a toolset — opens tabs, searches, reads pages (incl. behind logins), and synthesises answers. Bring-your-own-model. Includes a companion Word add-in.</p>
+      <div class="tags"><span class="tag-ts">TypeScript</span><span class="tag-html">HTML</span></div>
+      <div class="org">ssc-dsai</div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Agent Platform</div>
+      <h3><a href="https://github.com/ScottSyms/canchat-v2">canchat-v2</a></h3>
+      <p>Extensible self-hosted AI platform (Open WebUI fork) operating fully offline. Supports Ollama, OpenAI-compatible APIs, RAG, multi-model chats, image generation, RBAC, and pipeline plugins.</p>
+      <div class="tags"><span class="tag-python">Python</span><span class="tag-js">JavaScript</span><span class="tag-svelte">Svelte</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Skills</div>
+      <h3><a href="https://github.com/ScottSyms/GenAI-Skills">GenAI-Skills</a></h3>
+      <p>Collection of reusable skill definitions for AI-powered applications — domain modules providing data sources, tools, and integration contracts for platforms like Tommy3.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Data & Tools -->
+<section id="data">
+  <h2 class="section-title">Data &amp; Tools <span class="count">(7 projects)</span></h2>
+  <div class="grid">
+
+    <div class="card">
+      <div class="cat">Forensics</div>
+      <h3><a href="https://github.com/ScottSyms/olm-exploder">olm-exploder</a></h3>
+      <p>Parses Outlook for Mac .olm archives and exports to EML&#47;TXT&#47;MD&#47;JSON without extracting to disk. Preserves folder structure, attachments, categories, and conversation threads.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Archive</div>
+      <h3><a href="https://github.com/ScottSyms/AISArchive">AISArchive</a></h3>
+      <p>Strategy for storing Automated Identity System data in Parquet files optimised for time-range retrieval.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Crosswalk</div>
+      <h3><a href="https://github.com/ScottSyms/ElkCrosswalk">ElkCrosswalk</a></h3>
+      <p>Elk-crosswalk data processing and analysis tooling.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Translation</div>
+      <h3><a href="https://github.com/ScottSyms/translation_comparison">translation_comparison</a></h3>
+      <p>Compares multilingual translation quality across English, French, and Spanish.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Wikis</div>
+      <h3><a href="https://github.com/ScottSyms/generatewiki">generatewiki</a></h3>
+      <p>HTML wiki generation tool — processes structured content and renders static wiki sites.</p>
+      <div class="tags"><span class="tag-ruby">Ruby</span><span class="tag-html">HTML</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Benchmarks</div>
+      <h3><a href="https://github.com/ScottSyms/tiledb-spiel">tiledb-spiel</a></h3>
+      <p>Experiments and benchmarks with TileDB for array-based geospatial data storage.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Networking</div>
+      <h3><a href="https://github.com/ScottSyms/gentcp">gentcp</a></h3>
+      <p>TCP data generation and testing utility for pipeline development.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <p><a href="https://github.com/ScottSyms">github.com/ScottSyms</a></p>
+</footer>
+
 </body>
 </html>
