@@ -202,10 +202,13 @@
 
 <header>
   <h1>Scott Syms</h1>
-  <p>Building data pipelines, geospatial platforms, and AI tooling — mostly in Rust and Python. Data scientist at Shared Services Canada | <a href="https://www.linkedin.com/in/mscottsyms/" style="color:#93c5fd">LinkedIn</a></p>
+  <p>Building data pipelines, geospatial platforms, and AI tooling — mostly in Rust and Python. Senior Technical Advisor at Shared Services Canada | <a href="https://www.linkedin.com/in/mscottsyms/" style="color:#93c5fd">LinkedIn</a></p>
   <div class="links">
     <a href="https://github.com/ScottSyms">GitHub &rarr;</a>
-    <a href="#maritime">Maritime</a>
+    <a href="#maritime-pipeline">Pipeline</a>
+    <a href="#cop">COP</a>
+    <a href="#tiles">Tiles</a>
+    <a href="#heritage">Translation</a>
     <a href="#ai">AI &amp; LLM</a>
     <a href="#data">Data &amp; Tools</a>
   </div>
@@ -213,38 +216,53 @@
 
 <div class="container">
 
-<!-- Maritime & Geospatial -->
-<section id="maritime">
-  <h2 class="section-title">Maritime &amp; Geospatial <span class="count">(11 projects)</span></h2>
+<!-- Maritime Pipeline -->
+<section id="maritime-pipeline">
+  <h2 class="section-title">Maritime Pipeline <span class="count">(5 projects)</span></h2>
   <div class="grid">
 
     <div class="card">
-      <div class="cat">Maritime Pipeline</div>
+      <div class="cat">Ingestion</div>
       <h3><a href="https://github.com/ScottSyms/collect">collect</a></h3>
       <p>Ingests AIS positional data from file, TCP, Kafka, and WebSocket sources into Hive-partitioned Parquet (Zstd). Rust workspace with &#64;collect-socket&#44; &#64;collect-file&#44; &#64;collect-kafka&#44; &#64;aisstream&#44; and &#64;ais-parse&#41;.</p>
       <div class="tags"><span class="tag-rust">Rust</span><span class="tag-docker">Docker</span></div>
     </div>
 
     <div class="card">
-      <div class="cat">Maritime Pipeline</div>
+      <div class="cat">Ingestion</div>
       <h3><a href="https://github.com/ScottSyms/tcp-multiplexer">tcp-multiplexer</a></h3>
       <p>Lightweight TCP broker that connects to an upstream AIS feed and distributes framed NMEA messages across downstream consumers with load balancing, backpressure, and Prometheus metrics.</p>
       <div class="tags"><span class="tag-rust">Rust</span></div>
     </div>
 
     <div class="card">
-      <div class="cat">Maritime Pipeline</div>
+      <div class="cat">Parsing</div>
       <h3><a href="https://github.com/ScottSyms/nmea-parser">nmea-parser</a></h3>
       <p>NMEA 0183 parser crate (crates.io) covering all AIS sentences and major GNSS sentences. Supports AIS Class A/B, NMEA 4.10 tag blocks, GPS&#47;GLONASS&#47;Galileo&#47;BeiDou.</p>
       <div class="tags"><span class="tag-rust">Rust</span></div>
     </div>
 
     <div class="card">
-      <div class="cat">Maritime Pipeline</div>
+      <div class="cat">Conversion</div>
+      <h3><a href="https://github.com/ScottSyms/marinecadastre_to_parquet">marinecadastre_to_parquet</a></h3>
+      <p>Converts marine cadastre data into Parquet format for efficient geospatial querying.</p>
+      <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Benchmarks</div>
       <h3><a href="https://github.com/ScottSyms/parquet-timings">parquet-timings</a></h3>
       <p>Benchmarks 743M-row AIS data across five Hive-partitioned Parquet layouts: row-group pruning, bloom-filter skipping, and Hilbert-curve interval pruning. Achieves 2.4&times; geo-mean speedup over baseline.</p>
       <div class="tags"><span class="tag-rust">Rust</span><span class="tag-python">Python</span></div>
     </div>
+
+  </div>
+</section>
+
+<!-- COP Platform -->
+<section id="cop">
+  <h2 class="section-title">COP Platform <span class="count">(3 projects)</span></h2>
+  <div class="grid">
 
     <div class="card">
       <div class="cat">COP Platform</div>
@@ -268,13 +286,13 @@
       <div class="tags"><span class="tag-python">Python</span><span class="tag-js">JavaScript</span></div>
     </div>
 
-    <div class="card">
-      <div class="cat">Geospatial Viz</div>
-      <img class="card-img" src="images/screenshots/opfs-sa.png" alt="opfs-sa screenshot" onclick="openLightbox(this.src)">
-      <h3><a href="https://github.com/ScottSyms/opfs-sa">opfs-sa</a></h3>
-      <p>In-browser geospatial visualisation using OPFS to store pre-aggregated Parquet files locally, queried with WASM DuckDB. Renders 50M+ points via WebAssembly-accelerated density tiles.</p>
-      <div class="tags"><span class="tag-js">JavaScript</span><span class="tag-python">Python</span><span class="tag-rust">Rust</span></div>
-    </div>
+  </div>
+</section>
+
+<!-- Tile Servers -->
+<section id="tiles">
+  <h2 class="section-title">Tile Servers <span class="count">(3 projects)</span></h2>
+  <div class="grid">
 
     <div class="card">
       <div class="cat">Tile Servers</div>
@@ -300,9 +318,25 @@
   </div>
 </section>
 
-<!-- Heritage & Data Processing -->
+<!-- Maritime & Geospatial -->
+<section id="maritime">
+  <h2 class="section-title">Maritime &amp; Geospatial <span class="count">(1 project)</span></h2>
+  <div class="grid">
+
+    <div class="card">
+      <div class="cat">Geospatial Viz</div>
+      <img class="card-img" src="images/screenshots/opfs-sa.png" alt="opfs-sa screenshot" onclick="openLightbox(this.src)">
+      <h3><a href="https://github.com/ScottSyms/opfs-sa">opfs-sa</a></h3>
+      <p>In-browser geospatial visualisation using OPFS to store pre-aggregated Parquet files locally, queried with WASM DuckDB. Renders 50M+ points via WebAssembly-accelerated density tiles.</p>
+      <div class="tags"><span class="tag-js">JavaScript</span><span class="tag-python">Python</span><span class="tag-rust">Rust</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Translation Comparison -->
 <section id="heritage">
-  <h2 class="section-title">Heritage &amp; Data Processing <span class="count">(4 projects)</span></h2>
+  <h2 class="section-title">Translation Comparison <span class="count">(4 projects)</span></h2>
   <div class="grid">
 
     <div class="card">
@@ -327,12 +361,11 @@
     </div>
 
     <div class="card">
-      <div class="cat">Conversion</div>
-      <h3><a href="https://github.com/ScottSyms/marinecadastre_to_parquet">marinecadastre_to_parquet</a></h3>
-      <p>Converts marine cadastre data into Parquet format for efficient geospatial querying.</p>
+      <div class="cat">Translation</div>
+      <h3><a href="https://github.com/ScottSyms/translation_comparison">translation_comparison</a></h3>
+      <p>Compares multilingual translation quality across English, French, and Spanish.</p>
       <div class="tags"><span class="tag-python">Python</span></div>
     </div>
-
   </div>
 </section>
 
@@ -390,7 +423,7 @@
 
 <!-- Data & Tools -->
 <section id="data">
-  <h2 class="section-title">Data &amp; Tools <span class="count">(7 projects)</span></h2>
+  <h2 class="section-title">Data &amp; Tools <span class="count">(6 projects)</span></h2>
   <div class="grid">
 
     <div class="card">
@@ -411,13 +444,6 @@
       <div class="cat">Crosswalk</div>
       <h3><a href="https://github.com/ScottSyms/ElkCrosswalk">ElkCrosswalk</a></h3>
       <p>Elk-crosswalk data processing and analysis tooling.</p>
-      <div class="tags"><span class="tag-python">Python</span></div>
-    </div>
-
-    <div class="card">
-      <div class="cat">Translation</div>
-      <h3><a href="https://github.com/ScottSyms/translation_comparison">translation_comparison</a></h3>
-      <p>Compares multilingual translation quality across English, French, and Spanish.</p>
       <div class="tags"><span class="tag-python">Python</span></div>
     </div>
 
