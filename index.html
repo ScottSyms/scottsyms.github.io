@@ -145,6 +145,7 @@
       background: #f1f5f9;
       cursor: pointer;
     }
+    .card video.card-img { cursor: default; }
 
     .card .cat {
       font-size: 0.72rem;
@@ -229,14 +230,15 @@
 
 <!-- Maritime Pipeline -->
 <section id="maritime-pipeline">
-  <h2 class="section-title">Maritime Pipeline <span class="count">(7 projects)</span></h2>
+  <h2 class="section-title">Maritime Pipeline <span class="count">(10 projects)</span></h2>
   <p class="section-desc">Code around collecting and storing high volume geospatial data.</p>
   <div class="grid">
 
     <div class="card">
+      <img class="card-img" src="images/screenshots/collect.png" alt="collect pipeline interface" loading="lazy" onclick="openLightbox(this.src)">
       <div class="cat">Ingestion</div>
       <h3><a href="https://github.com/ScottSyms/collect">collect</a></h3>
-      <p>Ingests AIS positional data from file, TCP, Kafka, and WebSocket sources into Hive-partitioned Parquet (Zstd). Rust workspace with &#64;collect-socket&#44; &#64;collect-file&#44; &#64;collect-kafka&#44; &#64;aisstream&#44; and &#64;ais-parse&#41;.</p>
+      <p>Rust maritime pipeline that ingests files, TCP streams, Kafka topics, and aisstream.io into Zstd-compressed Hive-partitioned Parquet. It decodes AIS and NMEA into typed datasets with local or S3 storage, incremental processing, and Prometheus metrics.</p>
       <div class="tags"><span class="tag-rust">Rust</span><span class="tag-docker">Docker</span></div>
     </div>
 
@@ -250,14 +252,21 @@
     <div class="card">
       <div class="cat">Parsing</div>
       <h3><a href="https://github.com/ScottSyms/nmea-parser">nmea-parser</a></h3>
-      <p>NMEA 0183 parser crate (crates.io) covering all AIS sentences and major GNSS sentences. Supports AIS Class A/B, NMEA 4.10 tag blocks, GPS&#47;GLONASS&#47;Galileo&#47;BeiDou.</p>
+      <p>Contributed fork of zaari&#47;nmea-parser, a Rust NMEA 0183 crate supporting AIS VDM&#47;VDO types 1–5 and 9–27, major GNSS sentences, and NMEA 4.10 tag blocks.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Parsing &amp; Performance</div>
+      <h3><a href="https://github.com/ScottSyms/RustAISe">RustAISe</a></h3>
+      <p>Multithreaded AIS NMEA stream parser that memory-maps input, decodes vessel position and static reports, and emits NDJSON. Processes roughly 9.7 million messages in 4.5 seconds.</p>
       <div class="tags"><span class="tag-rust">Rust</span></div>
     </div>
 
     <div class="card">
       <div class="cat">Conversion</div>
       <h3><a href="https://github.com/ScottSyms/marinecadastre_to_parquet">marinecadastre_to_parquet</a></h3>
-      <p>Converts marine cadastre data into Parquet format for efficient geospatial querying.</p>
+      <p>Multithreaded converter that extracts zipped File Geodatabases, reads every Fiona layer, records source archive and layer provenance, and aggregates the features into GeoParquet.</p>
       <div class="tags"><span class="tag-python">Python</span></div>
     </div>
 
@@ -271,15 +280,29 @@
     <div class="card">
       <div class="cat">Archive</div>
       <h3><a href="https://github.com/ScottSyms/AISArchive">AISArchive</a></h3>
-      <p>Strategy for storing Automated Identity System data in Parquet files optimised for time-range retrieval.</p>
+      <p>Strategy for storing Automatic Identification System data in Parquet files optimised for time-range retrieval.</p>
       <div class="tags"><span class="tag-python">Python</span></div>
     </div>
 
     <div class="card">
       <div class="cat">Benchmarks</div>
       <h3><a href="https://github.com/ScottSyms/tiledb-spiel">tiledb-spiel</a></h3>
-      <p>Experiments and benchmarks with TileDB for array-based geospatial data storage.</p>
+      <p>Demonstration that downloads CSV data, normalises timestamps and missing values, and ingests it into a TileDB sparse array with companion scripts for reading the result.</p>
       <div class="tags"><span class="tag-python">Python</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Storage Operations</div>
+      <h3><a href="https://github.com/ScottSyms/objectstoremonitor">objectstoremonitor</a></h3>
+      <p>Ratatui dashboard that counts rows across 70,000+ Hive-partitioned Parquet objects on S3-compatible storage by fetching only file footer metadata concurrently.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">Data Extraction</div>
+      <h3><a href="https://github.com/ScottSyms/extractdata">extractdata</a></h3>
+      <p>Rust TUI for extracting date ranges from Hive-partitioned Parquet on S3, either preserving the partition hierarchy or combining selected files into one Parquet file.</p>
+      <div class="tags"><span class="tag-rust">Rust</span></div>
     </div>
 
   </div>
@@ -287,11 +310,12 @@
 
 <!-- COP Platform -->
 <section id="cop">
-  <h2 class="section-title">COP Platform <span class="count">(4 projects)</span></h2>
+  <h2 class="section-title">COP Platform <span class="count">(5 projects)</span></h2>
   <p class="section-desc">Experimentation around geospatial implementations — local storage, LLM integration, skills plugins.</p>
   <div class="grid">
 
     <div class="card">
+      <img class="card-img" src="images/screenshots/ai-sa.png" alt="AI-SA geospatial intelligence platform" loading="lazy" onclick="openLightbox(this.src)">
       <div class="cat">COP Platform</div>
       <h3><a href="https://github.com/ScottSyms/AI-SA">AI-SA / Tommy3</a></h3>
       <p>Skill-driven geospatial intelligence platform — third iteration of the tommy family. Drop-in domain skills provide data sources, SQL logic, tool contracts, and map layers. Rust&#47;Axum backend + SvelteKit frontend + WASM DuckDB.</p>
@@ -306,16 +330,26 @@
     </div>
 
     <div class="card">
+      <video class="card-img" autoplay muted loop playsinline preload="metadata" poster="images/screenshots/rcm-visualisation.png" aria-label="RADARSAT Constellation Mission visualisation demo">
+        <source src="images/screenshots/rcm-visualisation.mp4" type="video/mp4">
+      </video>
+      <div class="cat">Mission Visualisation</div>
+      <h3><a href="https://github.com/ScottSyms/RCM-Visualisation">RCM Visualisation</a></h3>
+      <p>Interactive 3D visualisation of the RADARSAT Constellation Mission. Propagates all three spacecraft with SGP4 and combines orbital data with planned, active, and historical SAR acquisitions, including timeline playback and satellite camera modes.</p>
+      <div class="tags"><span class="tag-svelte">Svelte</span><span class="tag-ts">TypeScript</span><span class="tag-html">HTML</span></div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="images/screenshots/tommy.jpg" alt="tommy maritime COP" loading="lazy" onclick="openLightbox(this.src)">
       <div class="cat">COP Platform</div>
-      <img class="card-img" src="images/screenshots/tommy.jpg" alt="tommy screenshot" onclick="openLightbox(this.src)">
       <h3><a href="https://github.com/ScottSyms/tommy">tommy</a></h3>
       <p>Maritime COP prototype with MapLibre frontend, FastAPI backend, local Whisper transcription, and a deterministic assistant loop for map-aware vessel queries.</p>
       <div class="tags"><span class="tag-python">Python</span><span class="tag-js">JavaScript</span></div>
     </div>
 
     <div class="card">
+      <img class="card-img" src="images/screenshots/opfs-sa.png" alt="opfs-sa geospatial visualisation" loading="lazy" onclick="openLightbox(this.src)">
       <div class="cat">Geospatial Viz</div>
-      <img class="card-img" src="images/screenshots/opfs-sa.png" alt="opfs-sa screenshot" onclick="openLightbox(this.src)">
       <h3><a href="https://github.com/ScottSyms/opfs-sa">opfs-sa</a></h3>
       <p>In-browser geospatial visualisation using OPFS to store pre-aggregated Parquet files locally, queried with WASM DuckDB. Renders 50M+ points via WebAssembly-accelerated density tiles.</p>
       <div class="tags"><span class="tag-js">JavaScript</span><span class="tag-python">Python</span><span class="tag-rust">Rust</span></div>
@@ -400,7 +434,7 @@
     <div class="card">
       <div class="cat">Translation</div>
       <h3><a href="https://github.com/ScottSyms/translation_comparison">translation_comparison</a></h3>
-      <p>Compares multilingual translation quality across English, French, and Spanish.</p>
+      <p>Prototype for comparing French and English pages using Azure translations, Spanish pivot translation, cosine similarity, and multilingual BERT-based scores.</p>
       <div class="tags"><span class="tag-python">Python</span></div>
     </div>
   </div>
@@ -429,13 +463,13 @@
     <div class="card">
       <div class="cat">RAG</div>
       <h3><a href="https://github.com/ScottSyms/ragdata-onnx">ragdata-onnx</a></h3>
-      <p>Builds txtai embedding databases for common research datasets (ArXiv, Wikipedia). Published as the <code>ragdata</code> pip package.</p>
+      <p>Fork of NeuML ragdata for building txtai embedding databases from common research datasets such as ArXiv and Wikipedia.</p>
       <div class="tags"><span class="tag-python">Python</span></div>
     </div>
 
     <div class="card">
+      <img class="card-img" src="images/screenshots/canchat-agent-chat.png" alt="CANChat-Agent browser side panel" loading="lazy" onclick="openLightbox(this.src)">
       <div class="cat">Agent Platform</div>
-      <img class="card-img" src="images/screenshots/canchat-agent-chat.png" alt="CANChat-Agent screenshot" onclick="openLightbox(this.src)">
       <h3><a href="https://github.com/ssc-dsai/CANChat-Agent">CANChat-Agent</a></h3>
       <p>Chromium browser extension that places an AI agent in the side panel, using the browser itself as a toolset — opens tabs, searches, reads pages (incl. behind logins), and synthesises answers. Bring-your-own-model. Includes a companion Word add-in.</p>
       <div class="tags"><span class="tag-ts">TypeScript</span><span class="tag-html">HTML</span></div>
@@ -443,9 +477,10 @@
     </div>
 
     <div class="card">
+      <img class="card-img" src="images/screenshots/canchat-v2.gif" alt="canchat-v2 interface demonstration" loading="lazy" onclick="openLightbox(this.src)">
       <div class="cat">Agent Platform</div>
       <h3><a href="https://github.com/ScottSyms/canchat-v2">canchat-v2</a></h3>
-      <p>Extensible self-hosted AI platform (Open WebUI fork) operating fully offline. Supports Ollama, OpenAI-compatible APIs, RAG, multi-model chats, image generation, RBAC, and pipeline plugins.</p>
+      <p>CANChat and Open WebUI fork customized as an extensible, self-hosted AI platform that can operate fully offline with local models, RAG, multi-model chats, RBAC, and pipeline plugins.</p>
       <div class="tags"><span class="tag-python">Python</span><span class="tag-js">JavaScript</span><span class="tag-svelte">Svelte</span></div>
     </div>
 
@@ -473,8 +508,8 @@
     </div>
 
     <div class="card">
+      <img class="card-img" src="images/screenshots/generatewiki.png" alt="generatewiki output" loading="lazy" onclick="openLightbox(this.src)">
       <div class="cat">Wikis</div>
-      <img class="card-img" src="images/screenshots/generatewiki.png" alt="generatewiki output" onclick="openLightbox(this.src)">
       <h3><a href="https://github.com/ScottSyms/generatewiki">generatewiki</a></h3>
       <p>HTML wiki generation tool — processes structured content and renders static wiki sites.</p>
       <div class="tags"><span class="tag-ruby">Ruby</span><span class="tag-html">HTML</span></div>
