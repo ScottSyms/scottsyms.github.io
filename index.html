@@ -4,77 +4,151 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Scott Syms — Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #0a0e1a;
+      --surface: #111a2e;
+      --surface-2: #16213a;
+      --border: rgba(148, 163, 184, .12);
+      --text: #e5ebf5;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #6366f1;
+      --accent-2: #22d3ee;
+      --accent-soft: rgba(99, 102, 241, .14);
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-family: var(--sans);
       line-height: 1.6;
-      color: #222;
-      background: #f5f7fa;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      background:
+        radial-gradient(1200px 600px at 50% -10%, rgba(99, 102, 241, .16), transparent 60%),
+        radial-gradient(1000px 500px at 100% 0%, rgba(34, 211, 238, .08), transparent 55%),
+        var(--bg);
+    }
+
+    /* Faint grid fading out toward the top */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, .045) 1px, transparent 1px);
+      background-size: 46px 46px;
+      -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000, transparent 78%);
+      mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000, transparent 78%);
     }
 
     /* --- Header --- */
     header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-      color: #e2e8f0;
-      padding: 3rem 1.5rem 2.5rem;
+      position: relative;
+      padding: 4.5rem 1.5rem 3.25rem;
       text-align: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(99, 102, 241, .10), transparent 70%);
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -45%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 720px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(99, 102, 241, .35), transparent 60%);
+      filter: blur(24px);
+      pointer-events: none;
     }
     header h1 {
-      font-size: 2.5rem;
+      position: relative;
+      font-family: var(--mono);
+      font-size: clamp(2.1rem, 5.5vw, 3.3rem);
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: #fff;
+      background: linear-gradient(120deg, #fff 10%, #a5b4fc 48%, #67e8f9 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     header p {
-      max-width: 600px;
-      margin: 0.75rem auto 0;
-      font-size: 1.1rem;
-      opacity: 0.85;
+      position: relative;
+      max-width: 660px;
+      margin: 1rem auto 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted);
     }
     header .links {
-      margin-top: 1.25rem;
+      position: relative;
+      margin-top: 1.6rem;
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: .6rem;
       flex-wrap: wrap;
     }
     header .links a {
-      color: #93c5fd;
+      font-family: var(--mono);
+      color: var(--text-muted);
       text-decoration: none;
+      font-size: .88rem;
       font-weight: 500;
-      font-size: 0.95rem;
-      transition: color 0.2s;
+      padding: .45rem .95rem;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      transition: color .2s, border-color .2s, background .2s, box-shadow .2s, transform .2s;
     }
-    header .links a:hover { color: #fff; }
+    header .links a:hover {
+      color: #fff;
+      border-color: rgba(99, 102, 241, .55);
+      background: var(--accent-soft);
+      box-shadow: 0 0 0 1px rgba(99, 102, 241, .25), 0 6px 20px rgba(99, 102, 241, .2);
+      transform: translateY(-1px);
+    }
 
     /* --- Sections --- */
     .container {
-      max-width: 1120px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
-    section { padding: 2.5rem 0; }
+    section { padding: 3rem 0; }
     section:first-of-type { padding-top: 1.5rem; }
+    section + section { border-top: 1px solid var(--border); }
 
     .section-title {
-      font-size: 1.5rem;
+      font-family: var(--mono);
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
       font-weight: 700;
-      margin-bottom: 0.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 3px solid #1e293b;
-      display: inline-block;
+      letter-spacing: -0.01em;
+      color: #fff;
+      display: flex;
+      align-items: baseline;
+      gap: .7rem;
+      margin-bottom: .75rem;
     }
     .section-desc {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #1e293b;
-      background: #eef2ff;
-      padding: 0.75rem 1.25rem;
-      border-radius: 8px;
-      border-left: 4px solid #6366f1;
+      max-width: 720px;
+      font-size: .98rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      background: rgba(99, 102, 241, .08);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: .85rem 1.1rem;
+      border-radius: 10px;
       margin-bottom: 1.5rem;
     }
 
@@ -82,130 +156,154 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.25rem;
+      gap: 1.35rem;
     }
 
     .card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-      transition: transform .15s, box-shadow .2s;
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem 1.35rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+      transition: transform .2s, border-color .2s, box-shadow .25s, background .25s;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      opacity: .5;
+      transition: opacity .3s;
     }
     .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+      transform: translateY(-4px);
+      background: var(--surface-2);
+      border-color: rgba(99, 102, 241, .5);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .4), 0 0 0 1px rgba(99, 102, 241, .16), 0 0 32px rgba(99, 102, 241, .14);
     }
-    .card h3 {
-      font-size: 1.05rem;
-      font-weight: 600;
-    }
-    .card h3 a {
-      color: #1e293b;
-      text-decoration: none;
-    }
-    .card h3 a:hover { color: #3b82f6; }
+    .card:hover::before { opacity: 1; }
 
-    .card .tags {
-      margin: 0.5rem 0 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-    }
-    .card .tags span {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
-    }
-    .tag-rust { background: #f0ead6; color: #7a4e00; }
-    .tag-python { background: #d4e8fa; color: #1a56db; }
-    .tag-ts { background: #c9e6ff; color: #0369a1; }
-    .tag-js { background: #fef3c7; color: #a16207; }
-    .tag-html { background: #fce4ec; color: #b71c1c; }
-    .tag-svelte { background: #fce7f3; color: #a11c6b; }
-    .tag-ruby { background: #fee2e2; color: #a11c1c; }
-    .tag-tex { background: #e0e7ff; color: #3730a3; }
-    .tag-nix { background: #d1fae5; color: #065f46; }
-    .tag-shell { background: #e2e8f0; color: #334155; }
-    .tag-docker { background: #c7eefb; color: #0e4f6b; }
-
-    .card .card-img {
-      width: calc(100% + 3rem);
-      margin: -1.25rem -1.5rem 0.75rem;
-      border-radius: 10px 10px 0 0;
-      display: block;
-      object-fit: contain;
-      max-height: 220px;
-      background: #f1f5f9;
-      cursor: pointer;
-    }
-    .card video.card-img { cursor: default; }
+    .card h3 { font-size: 1.08rem; font-weight: 600; }
+    .card h3 a { color: var(--text); text-decoration: none; transition: color .2s; }
+    .card h3 a:hover { color: #a5b4fc; }
 
     .card .cat {
-      font-size: 0.72rem;
+      font-family: var(--mono);
+      font-size: .72rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #6366f1;
-      margin-bottom: 0.3rem;
+      letter-spacing: .05em;
+      color: var(--accent-2);
+      margin-bottom: .35rem;
     }
     .card p {
-      font-size: 0.9rem;
-      color: #475569;
-      margin: 0.5rem 0 0.25rem;
+      font-size: .9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: .55rem 0 .25rem;
       flex: 1;
     }
-    .card .org {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      margin-top: 0.35rem;
-    }
+    .card .org { font-size: .75rem; color: var(--text-dim); margin-top: .4rem; }
 
+    .card .tags {
+      margin-top: .6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+    }
+    .card .tags span {
+      font-family: var(--mono);
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      padding: .2rem .55rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .tag-rust   { background: rgba(251, 146, 60, .14);  color: #fb923c; border-color: rgba(251, 146, 60, .3); }
+    .tag-python { background: rgba(59, 130, 246, .14);  color: #93c5fd; border-color: rgba(59, 130, 246, .3); }
+    .tag-ts     { background: rgba(14, 165, 233, .14);  color: #7dd3fc; border-color: rgba(14, 165, 233, .3); }
+    .tag-js     { background: rgba(250, 204, 21, .12);  color: #fde047; border-color: rgba(250, 204, 21, .28); }
+    .tag-html   { background: rgba(239, 68, 68, .14);   color: #fca5a5; border-color: rgba(239, 68, 68, .3); }
+    .tag-svelte { background: rgba(236, 72, 153, .14);  color: #f9a8d4; border-color: rgba(236, 72, 153, .3); }
+    .tag-ruby   { background: rgba(220, 38, 38, .14);   color: #fca5a5; border-color: rgba(220, 38, 38, .3); }
+    .tag-tex    { background: rgba(99, 102, 241, .14);  color: #a5b4fc; border-color: rgba(99, 102, 241, .3); }
+    .tag-nix    { background: rgba(16, 185, 129, .14);  color: #6ee7b7; border-color: rgba(16, 185, 129, .3); }
+    .tag-shell  { background: rgba(148, 163, 184, .14); color: #cbd5e1; border-color: rgba(148, 163, 184, .28); }
+    .tag-docker { background: rgba(14, 165, 233, .14);  color: #67e8f9; border-color: rgba(14, 165, 233, .3); }
+
+    .card .card-img {
+      display: block;
+      width: calc(100% + 3rem);
+      margin: -1.25rem -1.5rem .85rem;
+      max-height: 240px;
+      object-fit: contain;
+      background: #0b1120;
+      cursor: pointer;
+      transition: transform .4s ease;
+    }
+    .card:hover .card-img { transform: scale(1.03); }
+    .card video.card-img { cursor: default; }
+    .card:hover video.card-img { transform: none; }
+
+    /* --- Lightbox --- */
     .lightbox {
       display: none;
       position: fixed;
       z-index: 100;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,.85);
+      inset: 0;
+      background: rgba(2, 6, 23, .9);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
       cursor: pointer;
     }
     .lightbox.open { display: flex; }
     .lightbox img {
-      max-width: 90vw;
-      max-height: 90vh;
-      border-radius: 6px;
-      box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, .2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
     }
 
     /* --- Footer --- */
     footer {
       text-align: center;
-      padding: 2rem 1.5rem;
-      font-size: 0.85rem;
-      color: #94a3b8;
-      border-top: 1px solid #e2e8f0;
+      padding: 2.5rem 1.5rem 3rem;
+      font-size: .85rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
     }
-    footer a { color: #3b82f6; text-decoration: none; }
+    footer a { color: var(--text-muted); text-decoration: none; font-family: var(--mono); transition: color .2s; }
+    footer a:hover { color: #a5b4fc; }
 
-    /* --- Repo count badge --- */
+    /* Repo count badge */
     .count {
-      font-size: 0.85rem;
-      color: #64748b;
-      margin-left: 0.75rem;
-      font-weight: 400;
+      font-family: var(--mono);
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      background: rgba(148, 163, 184, .1);
+      border: 1px solid var(--border);
+      padding: .15rem .6rem;
+      border-radius: 999px;
     }
 
     @media (max-width: 640px) {
-      header h1 { font-size: 1.75rem; }
+      header { padding: 3.25rem 1.25rem 2.5rem; }
       .grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+      .reveal.in-view { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -215,14 +313,14 @@
   <h1>Scott Syms</h1>
   <p>Building data pipelines, geospatial platforms, and AI tooling — mostly in Rust and Python. Senior Technical Advisor at Shared Services Canada | <a href="https://www.linkedin.com/in/mscottsyms/" style="color:#93c5fd">LinkedIn</a></p>
   <div class="links">
-    <a href="https://github.com/ScottSyms">GitHub &rarr;</a>
+    <a href="https://github.com/ScottSyms">GitHub →</a>
     <a href="#maritime-pipeline">Pipeline</a>
     <a href="#cop">COP</a>
     <a href="#tiles">Tiles</a>
     <a href="#elk">Elk</a>
     <a href="#heritage">Translation</a>
-    <a href="#ai">AI &amp; LLM</a>
-    <a href="#data">Data &amp; Tools</a>
+    <a href="#ai">AI & LLM</a>
+    <a href="#data">Data & Tools</a>
   </div>
 </header>
 
@@ -252,12 +350,12 @@
     <div class="card">
       <div class="cat">Parsing</div>
       <h3><a href="https://github.com/ScottSyms/nmea-parser">nmea-parser</a></h3>
-      <p>Contributed fork of zaari&#47;nmea-parser, a Rust NMEA 0183 crate supporting AIS VDM&#47;VDO types 1–5 and 9–27, major GNSS sentences, and NMEA 4.10 tag blocks.</p>
+      <p>Contributed fork of zaari/nmea-parser, a Rust NMEA 0183 crate supporting AIS VDM/VDO types 1–5 and 9–27, major GNSS sentences, and NMEA 4.10 tag blocks.</p>
       <div class="tags"><span class="tag-rust">Rust</span></div>
     </div>
 
     <div class="card">
-      <div class="cat">Parsing &amp; Performance</div>
+      <div class="cat">Parsing & Performance</div>
       <h3><a href="https://github.com/ScottSyms/RustAISe">RustAISe</a></h3>
       <p>Multithreaded AIS NMEA stream parser that memory-maps input, decodes vessel position and static reports, and emits NDJSON. Processes roughly 9.7 million messages in 4.5 seconds.</p>
       <div class="tags"><span class="tag-rust">Rust</span></div>
@@ -273,7 +371,7 @@
     <div class="card">
       <div class="cat">Benchmarks</div>
       <h3><a href="https://github.com/ScottSyms/parquet-timings">parquet-timings</a></h3>
-      <p>Benchmarks 743M-row AIS data across five Hive-partitioned Parquet layouts: row-group pruning, bloom-filter skipping, and Hilbert-curve interval pruning. Achieves 2.4&times; geo-mean speedup over baseline.</p>
+      <p>Benchmarks 743M-row AIS data across five Hive-partitioned Parquet layouts: row-group pruning, bloom-filter skipping, and Hilbert-curve interval pruning. Achieves 2.4× geo-mean speedup over baseline.</p>
       <div class="tags"><span class="tag-rust">Rust</span><span class="tag-python">Python</span></div>
     </div>
 
@@ -318,7 +416,7 @@
       <img class="card-img" src="images/screenshots/ai-sa.png" alt="AI-SA geospatial intelligence platform" loading="lazy" onclick="openLightbox(this.src)">
       <div class="cat">COP Platform</div>
       <h3><a href="https://github.com/ScottSyms/AI-SA">AI-SA / Tommy3</a></h3>
-      <p>Skill-driven geospatial intelligence platform — third iteration of the tommy family. Drop-in domain skills provide data sources, SQL logic, tool contracts, and map layers. Rust&#47;Axum backend + SvelteKit frontend + WASM DuckDB.</p>
+      <p>Skill-driven geospatial intelligence platform — third iteration of the tommy family. Drop-in domain skills provide data sources, SQL logic, tool contracts, and map layers. Rust/Axum backend + SvelteKit frontend + WASM DuckDB.</p>
       <div class="tags"><span class="tag-rust">Rust</span><span class="tag-svelte">Svelte</span><span class="tag-ts">TypeScript</span></div>
     </div>
 
@@ -367,7 +465,7 @@
     <div class="card">
       <div class="cat">Tile Servers</div>
       <h3><a href="https://github.com/ScottSyms/mvt-rs-fork">mvt-rs-fork</a></h3>
-      <p>High-speed Mapbox Vector Tile server in Rust (Salvo). Generates MVT from Parquet files with admin UI, JWT auth, disk&#47;Redis caching, i18n, and multi-source layer support.</p>
+      <p>High-speed Mapbox Vector Tile server in Rust (Salvo). Generates MVT from Parquet files with admin UI, JWT auth, disk/Redis caching, i18n, and multi-source layer support.</p>
       <div class="tags"><span class="tag-rust">Rust</span><span class="tag-docker">Docker</span></div>
     </div>
 
@@ -381,7 +479,7 @@
     <div class="card">
       <div class="cat">Tile Servers</div>
       <h3><a href="https://github.com/ScottSyms/tileshade">tileshade</a></h3>
-      <p>Python counterpart of tilerust — FastAPI&#47;Datashader tile server serving PNG density tiles from CSV data with Web Mercator projection.</p>
+      <p>Python counterpart of tilerust — FastAPI/Datashader tile server serving PNG density tiles from CSV data with Web Mercator projection.</p>
       <div class="tags"><span class="tag-python">Python</span></div>
     </div>
 
@@ -413,7 +511,7 @@
     <div class="card">
       <div class="cat">Data Collection</div>
       <h3><a href="https://github.com/ScottSyms/Heritage.scrape">Heritage.scrape</a></h3>
-      <p>Scrapy&#47;Playwright crawler that scrapes heritage websites from a URL list, extracts text, and takes full-page screenshots — handling JavaScript-rendered content.</p>
+      <p>Scrapy/Playwright crawler that scrapes heritage websites from a URL list, extracts text, and takes full-page screenshots — handling JavaScript-rendered content.</p>
       <div class="tags"><span class="tag-python">Python</span></div>
     </div>
 
@@ -442,21 +540,21 @@
 
 <!-- AI & LLM -->
 <section id="ai">
-  <h2 class="section-title">AI &amp; LLM <span class="count">(6 projects)</span></h2>
+  <h2 class="section-title">AI & LLM <span class="count">(6 projects)</span></h2>
   <p class="section-desc">Playing with generative AI interfaces and retrieval augmented generation.</p>
   <div class="grid">
 
     <div class="card">
       <div class="cat">Local Inference</div>
       <h3><a href="https://github.com/ScottSyms/tinyllmserver">tinyllmserver</a></h3>
-      <p>Tiny, fast, low-memory OpenAI-compatible server running local GGUF chat models (llama.cpp) and multilingual embeddings (fastembed). Tool&#47;function calling, Metal GPU on Mac, CPU on Windows.</p>
+      <p>Tiny, fast, low-memory OpenAI-compatible server running local GGUF chat models (llama.cpp) and multilingual embeddings (fastembed). Tool/function calling, Metal GPU on Mac, CPU on Windows.</p>
       <div class="tags"><span class="tag-rust">Rust</span></div>
     </div>
 
     <div class="card">
       <div class="cat">RAG</div>
       <h3><a href="https://github.com/ScottSyms/portablebrains">portablebrains</a></h3>
-      <p>Document indexing system that ingests PDF&#47;HTML&#47;DOCX&#47;PPTX&#47;XLSX, extracts text with semantic chunking, generates ONNX embeddings, and stores in DuckDB. Includes interactive CLI and MCP server for Claude&#47;VSCode.</p>
+      <p>Document indexing system that ingests PDF/HTML/DOCX/PPTX/XLSX, extracts text with semantic chunking, generates ONNX embeddings, and stores in DuckDB. Includes interactive CLI and MCP server for Claude/VSCode.</p>
       <div class="tags"><span class="tag-rust">Rust</span></div>
     </div>
 
@@ -496,14 +594,14 @@
 
 <!-- Data & Tools -->
 <section id="data">
-  <h2 class="section-title">Data &amp; Tools <span class="count">(3 projects)</span></h2>
+  <h2 class="section-title">Data & Tools <span class="count">(3 projects)</span></h2>
   <p class="section-desc">Various tools to move or transform data.</p>
   <div class="grid">
 
     <div class="card">
       <div class="cat">Forensics</div>
       <h3><a href="https://github.com/ScottSyms/olm-exploder">olm-exploder</a></h3>
-      <p>Parses Outlook for Mac .olm archives and exports to EML&#47;TXT&#47;MD&#47;JSON without extracting to disk. Preserves folder structure, attachments, categories, and conversation threads.</p>
+      <p>Parses Outlook for Mac .olm archives and exports to EML/TXT/MD/JSON without extracting to disk. Preserves folder structure, attachments, categories, and conversation threads.</p>
       <div class="tags"><span class="tag-rust">Rust</span></div>
     </div>
 
@@ -548,6 +646,22 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLightbox();
   });
+
+  (function() {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+    var els = document.querySelectorAll('.card, .section-title, .section-desc');
+    els.forEach(function(el) { el.classList.add('reveal'); });
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el) { io.observe(el); });
+  })();
 </script>
 
 </body>
